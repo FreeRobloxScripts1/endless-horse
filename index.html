@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Endless Horse</title>
+/
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      text-align: center;
+      font-family: Arial, sans-serif;
+      scrollbar-width: none;  /* Firefox */
+        -ms-overflow-style: none;  /* IE and Edge */
+    }
+    #horse-container {
+      width: 380px;
+      margin: 0 auto;
+      position: relative;
+      padding-top: 50px; /* Adjust to control the starting position */
+    }
+    #horse {
+      width: 380px;
+      height: auto;
+    }
+    #legs {
+      width: 3800px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .leg {
+      display: block;
+      width: 380px;
+      height: auto;
+      margin-top: -5px;
+    }
+    /* Add some initial height to make sure scrolling is possible on desktop */
+    .leg, #horse-container, #legs {
+      min-height: 200px;
+    }
+  </style>
+</head>
+<body>
+  <div id="horse-container">
+    <!-- Horse body image -->
+    <img id="horse" src="horse.png" alt="Horse Body">
+    
+    <!-- Container for horse legs -->
+    <div id="legs">
+      <!-- Initial horse leg image -->
+      <img src="horse_leg.png" class="leg" alt="Horse Leg">
+      <img src="horse_leg.png" class="leg" alt="Horse Leg"> <!-- Add some initial legs for scrolling -->
+      <img src="horse_leg.png" class="leg" alt="Horse Leg"> <!-- More initial legs for testing -->
+    </div>
+  </div>
+
+  <script>
+    // Function to add new legs
+    function addLegs() {
+      var legContainer = document.getElementById('legs');
+      
+      // Create a new leg image
+      var newLeg = document.createElement('img');
+      newLeg.src = 'horse_leg.png';
+      newLeg.className = 'leg';
+      
+      // Append the new leg to the container
+      legContainer.appendChild(newLeg);
+    }
+
+    // Infinite scroll handler
+    window.addEventListener('scroll', function() {
+      // Check if the user has scrolled near the bottom of the page
+      // Added a larger threshold to ensure it works on desktop
+      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 200) {
+        addLegs(); // Add a new leg when near the bottom
+      }
+    });
+
+    // Initial legs load on page load
+    for (let i = 0; i < 5; i++) {
+      addLegs();
+    }
+  </script>
+</body>
+</html>
